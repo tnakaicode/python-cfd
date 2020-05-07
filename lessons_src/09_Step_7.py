@@ -14,13 +14,13 @@
 # ***
 
 # And here is the 2D-diffusion equation:
-# 
+#
 # $$\frac{\partial u}{\partial t} = \nu \frac{\partial ^2 u}{\partial x^2} + \nu \frac{\partial ^2 u}{\partial y^2}$$
-# 
-# You will recall that we came up with a method for discretizing second order derivatives in Step 3, when investigating 1-D diffusion.  We are going to use the same scheme here, with our forward difference in time and two second-order derivatives. 
+#
+# You will recall that we came up with a method for discretizing second order derivatives in Step 3, when investigating 1-D diffusion.  We are going to use the same scheme here, with our forward difference in time and two second-order derivatives.
 
 # $$\frac{u_{i,j}^{n+1} - u_{i,j}^n}{\Delta t} = \nu \frac{u_{i+1,j}^n - 2 u_{i,j}^n + u_{i-1,j}^n}{\Delta x^2} + \nu \frac{u_{i,j+1}^n-2 u_{i,j}^n + u_{i,j-1}^n}{\Delta y^2}$$
-# 
+#
 # Once again, we reorganize the discretized equation and solve for $u_{i,j}^{n+1}$
 
 # $$
@@ -35,14 +35,14 @@
 
 import numpy
 from matplotlib import pyplot, cm
-from mpl_toolkits.mplot3d import Axes3D ##library for 3d projection plots
+from mpl_toolkits.mplot3d import Axes3D  # library for 3d projection plots
 # get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # In[2]:
 
 
-###variable declarations
+# variable declarations
 nx = 31
 ny = 31
 nt = 17
@@ -58,9 +58,9 @@ y = numpy.linspace(0, 2, ny)
 u = numpy.ones((ny, nx))  # create a 1xn vector of 1's
 un = numpy.ones((ny, nx))
 
-###Assign initial conditions
+# Assign initial conditions
 # set hat function I.C. : u(.5<=x<=1 && .5<=y<=1 ) is 2
-u[int(.5 / dy):int(1 / dy + 1),int(.5 / dx):int(1 / dx + 1)] = 2  
+u[int(.5 / dy):int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2
 
 
 # In[3]:
@@ -70,14 +70,14 @@ fig = pyplot.figure()
 ax = fig.gca(projection='3d')
 X, Y = numpy.meshgrid(x, y)
 surf = ax.plot_surface(X, Y, u, rstride=1, cstride=1, cmap=cm.viridis,
-        linewidth=0, antialiased=False)
+                       linewidth=0, antialiased=False)
 
 ax.set_xlim(0, 2)
 ax.set_ylim(0, 2)
 ax.set_zlim(1, 2.5)
 
 ax.set_xlabel('$x$')
-ax.set_ylabel('$y$');
+ax.set_ylabel('$y$')
 
 
 # $$
@@ -90,35 +90,33 @@ ax.set_ylabel('$y$');
 # In[4]:
 
 
-###Run through nt timesteps
+# Run through nt timesteps
 def diffuse(nt):
-    u[int(.5 / dy):int(1 / dy + 1),int(.5 / dx):int(1 / dx + 1)] = 2  
-    
-    for n in range(nt + 1): 
+    u[int(.5 / dy):int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2
+
+    for n in range(nt + 1):
         un = u.copy()
-        u[1:-1, 1:-1] = (un[1:-1,1:-1] + 
-                        nu * dt / dx**2 * 
-                        (un[1:-1, 2:] - 2 * un[1:-1, 1:-1] + un[1:-1, 0:-2]) +
-                        nu * dt / dy**2 * 
-                        (un[2:,1: -1] - 2 * un[1:-1, 1:-1] + un[0:-2, 1:-1]))
+        u[1:-1, 1:-1] = (un[1:-1, 1:-1] +
+                         nu * dt / dx**2 *
+                         (un[1:-1, 2:] - 2 * un[1:-1, 1:-1] + un[1:-1, 0:-2]) +
+                         nu * dt / dy**2 *
+                         (un[2:, 1: -1] - 2 * un[1:-1, 1:-1] + un[0:-2, 1:-1]))
         u[0, :] = 1
         u[-1, :] = 1
         u[:, 0] = 1
         u[:, -1] = 1
 
-    
     fig = pyplot.figure()
     ax = fig.gca(projection='3d')
     surf = ax.plot_surface(X, Y, u[:], rstride=1, cstride=1, cmap=cm.viridis,
-        linewidth=0, antialiased=True)
+                           linewidth=0, antialiased=True)
     ax.set_zlim(1, 2.5)
     ax.set_xlabel('$x$')
-    ax.set_ylabel('$y$');
-    
+    ax.set_ylabel('$y$')
+    pyplot.show()
 
 
 # In[5]:
-
 
 diffuse(10)
 
@@ -133,7 +131,6 @@ diffuse(14)
 
 
 diffuse(50)
-
 
 # ## Learn More
 
@@ -150,9 +147,13 @@ YouTubeVideo('tUg_dE3NXoY')
 
 
 from IPython.core.display import HTML
+
+
 def css_styling():
     styles = open("../styles/custom.css", "r").read()
     return HTML(styles)
+
+
 css_styling()
 
 

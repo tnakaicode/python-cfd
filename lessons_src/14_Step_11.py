@@ -250,7 +250,7 @@ u = numpy.zeros((ny, nx))
 v = numpy.zeros((ny, nx))
 p = numpy.zeros((ny, nx))
 b = numpy.zeros((ny, nx))
-nt = 100
+nt = 500
 u, v, p = cavity_flow(nt, u, v, dt, dx, dy, p, rho, nu)
 
 

@@ -74,8 +74,8 @@ import sympy
 # In[2]:
 
 
-from sympy import init_printing
-init_printing(use_latex=True)
+#from sympy import init_printing
+#init_printing(use_latex=True)
 
 
 # Start by setting up symbolic variables for the three variables in our initial condition and then type out the full equation for $\phi$.  We should get a nicely rendered version of our $\phi$ equation.
@@ -86,7 +86,6 @@ init_printing(use_latex=True)
 x, nu, t = sympy.symbols('x nu t')
 phi = (sympy.exp(-(x - 4 * t)**2 / (4 * nu * (t + 1))) +
        sympy.exp(-(x - 4 * t - 2 * sympy.pi)**2 / (4 * nu * (t + 1))))
-phi
 
 
 # It's maybe a little small, but that looks right.  Now to evaluate our partial derivative $\frac{\partial \phi}{\partial x}$ is a trivial task.
@@ -95,7 +94,6 @@ phi
 
 
 phiprime = phi.diff(x)
-phiprime
 
 
 # If you want to see the unrendered version, just use the Python print command.
