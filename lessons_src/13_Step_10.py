@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-Text provided under a Creative Commons Attribution license, CC-BY.  All code is made available under the FSF-approved BSD-3 license.  (c) Lorena A. Barba, Gilbert F. Forsyth 2017. Thanks to NSF for support via CAREER award #1149784.
+# # Text provided under a Creative Commons Attribution license, CC-BY.  All code is made available under the FSF-approved BSD-3 license.  (c) Lorena A. Barba, Gilbert F. Forsyth 2017. Thanks to NSF for support via CAREER award #1149784.
 # [@LorenaABarba](https://twitter.com/LorenaABarba)
 
 # 12 steps to Navier–Stokes
@@ -61,7 +61,7 @@ Text provided under a Creative Commons Attribution license, CC-BY.  All code is 
 import numpy
 from matplotlib import pyplot, cm
 from mpl_toolkits.mplot3d import Axes3D
-get_ipython().run_line_magic('matplotlib', 'inline')
+## get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # In[2]:
@@ -131,7 +131,7 @@ def plot2D(x, y, p):
 
 
 plot2D(x, y, p)
-
+pyplot.show()
 
 # Ah! The wonders of code reuse! Now, you probably think: "Well, if I've written this neat little function that does something so useful, I want to use it over and over again. How can I do this without copying and pasting it each time? —If you are very curious about this, you'll have to learn about *packaging*. But this goes beyond the scope of our CFD lessons. You'll just have to Google it if you really want to know.
 
@@ -144,18 +144,18 @@ plot2D(x, y, p)
 # In[6]:
 
 
-from IPython.display import YouTubeVideo
-YouTubeVideo('ZjfxA3qq2Lg')
+#from IPython.display import YouTubeVideo
+#YouTubeVideo('ZjfxA3qq2Lg')
 
 
 # In[7]:
 
 
-from IPython.core.display import HTML
-def css_styling():
-    styles = open("../styles/custom.css", "r").read()
-    return HTML(styles)
-css_styling()
+#from IPython.core.display import HTML
+#def css_styling():
+#    styles = open("../styles/custom.css", "r").read()
+#    return HTML(styles)
+#css_styling()
 
 
 # > (The cell above executes the style for this notebook.)

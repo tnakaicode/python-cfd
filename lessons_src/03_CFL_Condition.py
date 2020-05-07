@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-Text provided under a Creative Commons Attribution license, CC-BY.  All code is made available under the FSF-approved BSD-3 license.  (c) Lorena A. Barba, Gilbert F. Forsyth 2017. Thanks to NSF for support via CAREER award #1149784.
+# Text provided under a Creative Commons Attribution license, CC-BY.  All code is made available under the FSF-approved BSD-3 license.  (c) Lorena A. Barba, Gilbert F. Forsyth 2017. Thanks to NSF for support via CAREER award #1149784.
 # [@LorenaABarba](https://twitter.com/LorenaABarba)
 
 # 12 steps to Navier–Stokes
@@ -22,7 +22,7 @@ Text provided under a Creative Commons Attribution license, CC-BY.  All code is 
 
 import numpy                 #numpy is a library for array operations akin to MATLAB
 from matplotlib import pyplot    #matplotlib is 2D plotting library
-get_ipython().run_line_magic('matplotlib', 'inline')
+# get_ipython().run_line_magic('matplotlib', 'inline')
 
 def linearconv(nx):
     dx = 2 / (nx - 1)

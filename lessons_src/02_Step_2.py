@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-Text provided under a Creative Commons Attribution license, CC-BY.  All code is made available under the FSF-approved BSD-3 license.  (c) Lorena A. Barba, Gilbert F. Forsyth 2017. Thanks to NSF for support via CAREER award #1149784.
+# Text provided under a Creative Commons Attribution license, CC-BY.  All code is made available under the FSF-approved BSD-3 license.  (c) Lorena A. Barba, Gilbert F. Forsyth 2017. Thanks to NSF for support via CAREER award #1149784.
 # [@LorenaABarba](https://twitter.com/LorenaABarba)
 
 # 12 steps to Navier–Stokes
@@ -33,7 +33,7 @@ Text provided under a Creative Commons Attribution license, CC-BY.  All code is 
 
 import numpy                 # we're importing numpy 
 from matplotlib import pyplot    # and our 2D plotting library
-get_ipython().run_line_magic('matplotlib', 'inline')
+## get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 nx = 41
@@ -54,12 +54,12 @@ un = numpy.ones(nx) #initialize our placeholder array un, to hold the time-stepp
 
 for n in range(nt):  #iterate through time
     un = u.copy() ##copy the existing values of u into un
-    for i in range(1, nx):  ##now we'll iterate through the u array
+    #for i in range(1, nx):  ##now we'll iterate through the u array
     
-     ###This is the line from Step 1, copied exactly.  Edit it for our new equation.
-     ###then uncomment it and run the cell to evaluate Step 2   
+        ###This is the line from Step 1, copied exactly.  Edit it for our new equation.
+        ###then uncomment it and run the cell to evaluate Step 2   
       
-           ###u[i] = un[i] - c * dt / dx * (un[i] - un[i-1]) 
+        #u[i] = un[i] - c * dt / dx * (un[i] - un[i-1]) 
 
         
 pyplot.plot(numpy.linspace(0, 2, nx), u) ##Plot the results

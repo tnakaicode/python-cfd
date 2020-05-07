@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-Text provided under a Creative Commons Attribution license, CC-BY.  All code is made available under the FSF-approved BSD-3 license.  (c) Lorena A. Barba, Gilbert F. Forsyth 2017. Thanks to NSF for support via CAREER award #1149784.
+# Text provided under a Creative Commons Attribution license, CC-BY.  All code is made available under the FSF-approved BSD-3 license.  (c) Lorena A. Barba, Gilbert F. Forsyth 2017. Thanks to NSF for support via CAREER award #1149784.
 # [@LorenaABarba](https://twitter.com/LorenaABarba)
 
 # 12 steps to Navier–Stokes
@@ -80,7 +80,7 @@ u[int(.5 / dy): int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2
 # In[5]:
 
 
-get_ipython().run_cell_magic('timeit', '', 'u = numpy.ones((ny, nx))\nu[int(.5 / dy): int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2\n\nfor n in range(nt + 1): ##loop across number of time steps\n    un = u.copy()\n    row, col = u.shape\n    for j in range(1, row):\n        for i in range(1, col):\n            u[j, i] = (un[j, i] - (c * dt / dx * \n                                  (un[j, i] - un[j, i - 1])) - \n                                  (c * dt / dy * \n                                   (un[j, i] - un[j - 1, i])))\n            u[0, :] = 1\n            u[-1, :] = 1\n            u[:, 0] = 1\n            u[:, -1] = 1')
+# get_ipython().run_cell_magic('timeit', '', 'u = numpy.ones((ny, nx))\nu[int(.5 / dy): int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2\n\nfor n in range(nt + 1): ##loop across number of time steps\n    un = u.copy()\n    row, col = u.shape\n    for j in range(1, row):\n        for i in range(1, col):\n            u[j, i] = (un[j, i] - (c * dt / dx * \n                                  (un[j, i] - un[j, i - 1])) - \n                                  (c * dt / dy * \n                                   (un[j, i] - un[j - 1, i])))\n            u[0, :] = 1\n            u[-1, :] = 1\n            u[:, 0] = 1\n            u[:, -1] = 1')
 
 
 # With the "raw" Python code above, the mean execution time achieved was 3.07 seconds (on a MacBook Pro Mid 2012).  Keep in mind that with these three nested loops, that the statements inside the **j** loop are being evaluated more than 650,000 times.   Let's compare that with the performance of the same code implemented with array operations:
@@ -88,7 +88,7 @@ get_ipython().run_cell_magic('timeit', '', 'u = numpy.ones((ny, nx))\nu[int(.5 /
 # In[6]:
 
 
-get_ipython().run_cell_magic('timeit', '', 'u = numpy.ones((ny, nx))\nu[int(.5 / dy): int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2\n\nfor n in range(nt + 1): ##loop across number of time steps\n    un = u.copy()\n    u[1:, 1:] = (un[1:, 1:] - (c * dt / dx * (un[1:, 1:] - un[1:, 0:-1])) -\n                              (c * dt / dy * (un[1:, 1:] - un[0:-1, 1:])))\n    u[0, :] = 1\n    u[-1, :] = 1\n    u[:, 0] = 1\n    u[:, -1] = 1')
+# get_ipython().run_cell_magic('timeit', '', 'u = numpy.ones((ny, nx))\nu[int(.5 / dy): int(1 / dy + 1), int(.5 / dx):int(1 / dx + 1)] = 2\n\nfor n in range(nt + 1): ##loop across number of time steps\n    un = u.copy()\n    u[1:, 1:] = (un[1:, 1:] - (c * dt / dx * (un[1:, 1:] - un[1:, 0:-1])) -\n                              (c * dt / dy * (un[1:, 1:] - un[0:-1, 1:])))\n    u[0, :] = 1\n    u[-1, :] = 1\n    u[:, 0] = 1\n    u[:, -1] = 1')
 
 
 # As you can see, the speed increase is substantial.  The same calculation goes from 3.07 seconds to 7.38 milliseconds.  3 seconds isn't a huge amount of time to wait, but these speed gains will increase exponentially with the size and complexity of the problem being evaluated.  

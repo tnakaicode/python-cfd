@@ -30,7 +30,7 @@
 
 # <-- comments in python are denoted by the pound sign, like this one
 
-import numpy                 # we import the array library
+import numpy as np                # we import the array library
 from matplotlib import pyplot    # import plotting library
 
 
@@ -41,7 +41,7 @@ from matplotlib import pyplot    # import plotting library
 # In[2]:
 
 
-myarray = numpy.linspace(0, 5, 10)
+myarray = np.linspace(0, 5, 10)
 myarray
 
 
@@ -50,7 +50,7 @@ myarray
 # In[4]:
 
 
-myarray = linspace(0, 5, 10)
+myarray = np.linspace(0, 5, 10)
 
 
 # The function `linspace()` is very useful. Try it changing the input parameters!
@@ -139,8 +139,8 @@ for i in range(3):
 # In[11]:
 
 
-myvals = numpy.array([1, 2, 3, 4, 5])
-myvals
+myvals = np.array([1, 2, 3, 4, 5])
+print(myvals)
 
 
 # Python uses a **zero-based index**, so let's look at the first and last element in the array `myvals`
@@ -148,7 +148,7 @@ myvals
 # In[12]:
 
 
-myvals[0], myvals[4]
+print(myvals[0], myvals[4])
 
 
 # There are 5 elements in the array `myvals`, but if we try to look at `myvals[5]`, Python will be unhappy, as `myvals[5]` is actually calling the non-existant 6th element of that array.
@@ -156,7 +156,7 @@ myvals[0], myvals[4]
 # In[13]:
 
 
-myvals[5]
+print(myvals[5])
 
 
 # Arrays can also be 'sliced', grabbing a range of values.  Let's look at the first three elements
@@ -164,7 +164,7 @@ myvals[5]
 # In[14]:
 
 
-myvals[0:3]
+print(myvals[0:3])
 
 
 # Note here, the slice is inclusive on the front end and exclusive on the back, so the above command gives us the values of `myvals[0]`, `myvals[1]` and `myvals[2]`, but not `myvals[3]`.
@@ -176,7 +176,7 @@ myvals[0:3]
 # In[15]:
 
 
-a = numpy.linspace(1,5,5)
+a = np.linspace(1,5,5)
 
 
 # In[16]:
