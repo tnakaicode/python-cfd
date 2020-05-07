@@ -158,7 +158,7 @@ ax.plot_surface(X, Y, u, cmap=cm.viridis, rstride=1, cstride=1)
 ax.plot_surface(X, Y, v, cmap=cm.viridis, rstride=1, cstride=1)
 ax.set_xlabel('$x$')
 ax.set_ylabel('$y$');
-
+pyplot.show()
 
 # ## Learn More
 
@@ -167,18 +167,18 @@ ax.set_ylabel('$y$');
 # In[6]:
 
 
-from IPython.display import YouTubeVideo
-YouTubeVideo('tUg_dE3NXoY')
+#from IPython.display import YouTubeVideo
+#YouTubeVideo('tUg_dE3NXoY')
 
 
 # In[7]:
 
 
-from IPython.core.display import HTML
-def css_styling():
-    styles = open("../styles/custom.css", "r").read()
-    return HTML(styles)
-css_styling()
+#from IPython.core.display import HTML
+#def css_styling():
+#    styles = open("../styles/custom.css", "r").read()
+#    return HTML(styles)
+#css_styling()
 
 
 # > (The cell above executes the style for this notebook.)
