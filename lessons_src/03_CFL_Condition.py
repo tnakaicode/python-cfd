@@ -8,8 +8,8 @@
 # ***
 
 # Did you experiment in Steps [1](./01_Step_1.ipynb) and [2](./02_Step_2.ipynb) using different parameter choices? If you did, you probably ran into some unexpected behavior. Did your solution ever blow up? (In my experience, CFD students *love* to make things blow up.)
-# 
-# You are probably wondering why changing the discretization parameters affects your solution in such a drastic way. This notebook complements our [interactive CFD lessons](https://github.com/barbagroup/CFDPython) by discussing the CFL condition. And learn more by watching Prof. Barba's YouTube lectures (links below). 
+#
+# You are probably wondering why changing the discretization parameters affects your solution in such a drastic way. This notebook complements our [interactive CFD lessons](https://github.com/barbagroup/CFDPython) by discussing the CFL condition. And learn more by watching Prof. Barba's YouTube lectures (links below).
 
 # Convergence and the CFL Condition
 # ----
@@ -20,35 +20,40 @@
 # In[1]:
 
 
-import numpy                 #numpy is a library for array operations akin to MATLAB
-from matplotlib import pyplot    #matplotlib is 2D plotting library
+import numpy  # numpy is a library for array operations akin to MATLAB
+from matplotlib import pyplot  # matplotlib is 2D plotting library
 # get_ipython().run_line_magic('matplotlib', 'inline')
+
 
 def linearconv(nx):
     dx = 2 / (nx - 1)
-    nt = 20    #nt is the number of timesteps we want to calculate
-    dt = .025  #dt is the amount of time each timestep covers (delta t)
+    nt = 20  # nt is the number of timesteps we want to calculate
+    dt = .025  # dt is the amount of time each timestep covers (delta t)
     c = 1
 
-    u = numpy.ones(nx)      #defining a numpy array which is nx elements long with every value equal to 1.
-    u[int(.5/dx):int(1 / dx + 1)] = 2  #setting u = 2 between 0.5 and 1 as per our I.C.s
+    # defining a numpy array which is nx elements long with every value equal to 1.
+    u = numpy.ones(nx)
+    # setting u = 2 between 0.5 and 1 as per our I.C.s
+    u[int(.5 / dx):int(1 / dx + 1)] = 2
 
-    un = numpy.ones(nx) #initializing our placeholder array, un, to hold the values we calculate for the n+1 timestep
+    # initializing our placeholder array, un, to hold the values we calculate for the n+1 timestep
+    un = numpy.ones(nx)
 
-    for n in range(nt):  #iterate through time
-        un = u.copy() ##copy the existing values of u into un
+    for n in range(nt):  # iterate through time
+        un = u.copy()  # copy the existing values of u into un
         for i in range(1, nx):
-            u[i] = un[i] - c * dt / dx * (un[i] - un[i-1])
-        
-    pyplot.plot(numpy.linspace(0, 2, nx), u);
+            u[i] = un[i] - c * dt / dx * (un[i] - un[i - 1])
+
+    pyplot.plot(numpy.linspace(0, 2, nx), u)
+    pyplot.show()
 
 
-# Now let's examine the results of our linear convection problem with an increasingly fine mesh.  
+# Now let's examine the results of our linear convection problem with an increasingly fine mesh.
 
 # In[2]:
 
 
-linearconv(41) #convection using 41 grid points
+linearconv(41)  # convection using 41 grid points
 
 
 # This is the same result as our Step 1 calculation, reproduced here for reference.
@@ -59,7 +64,7 @@ linearconv(41) #convection using 41 grid points
 linearconv(61)
 
 
-# Here, there is still numerical diffusion present, but it is less severe.  
+# Here, there is still numerical diffusion present, but it is less severe.
 
 # In[4]:
 
@@ -75,27 +80,27 @@ linearconv(71)
 linearconv(85)
 
 
-# This doesn't look anything like our original hat function. 
+# This doesn't look anything like our original hat function.
 
 # ### What happened?
 
-# To answer that question, we have to think a little bit about what we're actually implementing in code.  
-# 
-# In each iteration of our time loop, we use the existing data about our wave to estimate the speed of the wave in the subsequent time step.  Initially, the increase in the number of grid points returned more accurate answers.  There was less numerical diffusion and the square wave looked much more like a square wave than it did in our first example.  
-# 
+# To answer that question, we have to think a little bit about what we're actually implementing in code.
+#
+# In each iteration of our time loop, we use the existing data about our wave to estimate the speed of the wave in the subsequent time step.  Initially, the increase in the number of grid points returned more accurate answers.  There was less numerical diffusion and the square wave looked much more like a square wave than it did in our first example.
+#
 # Each iteration of our time loop covers a time-step of length $\Delta t$, which we have been defining as 0.025
-# 
-# During this iteration, we evaluate the speed of the wave at each of the $x$ points we've created.  In the last plot, something has clearly gone wrong.  
-# 
-# What has happened is that over the time period $\Delta t$, the wave is travelling a distance which is greater than `dx`.  The length `dx` of each grid box is related to the number of total points `nx`, so stability can be enforced if the $\Delta t$ step size is calculated with respect to the size of `dx`.  
-# 
+#
+# During this iteration, we evaluate the speed of the wave at each of the $x$ points we've created.  In the last plot, something has clearly gone wrong.
+#
+# What has happened is that over the time period $\Delta t$, the wave is travelling a distance which is greater than `dx`.  The length `dx` of each grid box is related to the number of total points `nx`, so stability can be enforced if the $\Delta t$ step size is calculated with respect to the size of `dx`.
+#
 # $$\sigma = \frac{u \Delta t}{\Delta x} \leq \sigma_{\max}$$
-# 
-# where $u$ is the speed of the wave; $\sigma$ is called the **Courant number** and the value of $\sigma_{\max}$ that will ensure stability depends on the discretization used. 
-# 
-# In a new version of our code, we'll use the CFL number to calculate the appropriate time-step `dt` depending on the size of `dx`.  
-# 
-# 
+#
+# where $u$ is the speed of the wave; $\sigma$ is called the **Courant number** and the value of $\sigma_{\max}$ that will ensure stability depends on the discretization used.
+#
+# In a new version of our code, we'll use the CFL number to calculate the appropriate time-step `dt` depending on the size of `dx`.
+#
+#
 
 # In[6]:
 
@@ -103,24 +108,25 @@ linearconv(85)
 import numpy
 from matplotlib import pyplot
 
+
 def linearconv(nx):
     dx = 2 / (nx - 1)
-    nt = 20    #nt is the number of timesteps we want to calculate
+    nt = 20  # nt is the number of timesteps we want to calculate
     c = 1
     sigma = .5
-    
+
     dt = sigma * dx
 
-    u = numpy.ones(nx) 
-    u[int(.5/dx):int(1 / dx + 1)] = 2
+    u = numpy.ones(nx)
+    u[int(.5 / dx):int(1 / dx + 1)] = 2
 
     un = numpy.ones(nx)
 
-    for n in range(nt):  #iterate through time
-        un = u.copy() ##copy the existing values of u into un
+    for n in range(nt):  # iterate through time
+        un = u.copy()  # copy the existing values of u into un
         for i in range(1, nx):
-            u[i] = un[i] - c * dt / dx * (un[i] - un[i-1])
-        
+            u[i] = un[i] - c * dt / dx * (un[i] - un[i - 1])
+
     pyplot.plot(numpy.linspace(0, 2, nx), u)
 
 
@@ -154,7 +160,7 @@ linearconv(101)
 linearconv(121)
 
 
-# Notice that as the number of points `nx` increases, the wave convects a shorter and shorter distance.  The number of time iterations we have advanced the solution at is held constant at `nt = 20`, but depending on the value of `nx` and the corresponding values of `dx` and `dt`, a shorter time window is being examined overall.  
+# Notice that as the number of points `nx` increases, the wave convects a shorter and shorter distance.  The number of time iterations we have advanced the solution at is held constant at `nt = 20`, but depending on the value of `nx` and the corresponding values of `dx` and `dt`, a shorter time window is being examined overall.
 
 # Learn More
 # -----
@@ -173,8 +179,11 @@ YouTubeVideo('Yw1YPBupZxU')
 
 
 from IPython.core.display import HTML
+
+
 def css_styling():
     styles = open("../styles/custom.css", "r").read()
     return HTML(styles)
-css_styling()
 
+
+css_styling()
